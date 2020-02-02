@@ -1,0 +1,5 @@
+C:\Users\borut\source\godot\games\godot-solitare\.mono\temp\obj\Tools\Solitare.csprojAssemblyReference.cache
+C:\Users\borut\source\godot\games\godot-solitare\.mono\temp\bin\Tools\Solitare.dll
+C:\Users\borut\source\godot\games\godot-solitare\.mono\temp\bin\Tools\Solitare.pdb
+C:\Users\borut\source\godot\games\godot-solitare\.mono\temp\obj\Tools\Solitare.dll
+C:\Users\borut\source\godot\games\godot-solitare\.mono\temp\obj\Tools\Solitare.pdb
