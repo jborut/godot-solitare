@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public static class CardUtils
 {
+    public const string CardsGroupName = "cards";
     private static Random random = new Random();
 
     public static void Shuffle<T>(this IList<T> list)  

@@ -23,6 +23,8 @@ public class Main : Node2D
 		float offsetY = 0;
 		float fullWidth = 0;
 
+		ClearDeck();
+
 		deck = CardUtils.GetRandomizedDeck(Cards);
 
 		for (int i = 0; i < deck.Length; i++)
@@ -39,6 +41,14 @@ public class Main : Node2D
 
 				deck[i].Position = new Vector2(offsetX + i * (deck[i].DrawWidth + 10) - (i / 13) * fullWidth, offsetY + (i / 13) * (deck[i].DrawHeight + 10));
 				deck[i].Show();
+		}
+	}
+	
+	private void ClearDeck()
+	{
+		foreach (var node in GetTree().GetNodesInGroup(CardUtils.CardsGroupName))
+		{
+			((Node2D)node).QueueFree();
 		}
 	}
 }

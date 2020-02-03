@@ -27,6 +27,8 @@ public class Card : Area2D
 	
 	public override void _Ready()
 	{
+		
+		AddToGroup(CardUtils.CardsGroupName);
 		sprite = GetNode<Sprite>("Sprite");
 		sprite.RegionEnabled = true;
 		sprite.RegionRect = GetRegion();

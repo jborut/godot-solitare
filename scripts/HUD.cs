@@ -47,7 +47,7 @@ public class HUD : CanvasLayer
 			case HudState.GameMenu:
 				statsLabel.Text = "";
 				statsLabel.Show();
-				startButton.Hide();
+				//startButton.Hide();
 				undoButton.Show();
 				break;
 		}
