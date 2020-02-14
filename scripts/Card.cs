@@ -3,6 +3,8 @@ using System;
 
 public class Card : Area2D
 {
+	public const string CardsGroupName = "cards";
+
 	public enum CardType : int
 	{
 		Spades,
@@ -18,8 +20,8 @@ public class Card : Area2D
 	
 	private const int OffsetX = 0;
 	private const int OffsetY = 2;
-	private const int Width = 224;
-	private const int Height = 313;
+	private float Width = 224;
+	private float Height = 313;
 	private const int MarginWidth = 39;
 	private const int MarginHeight = 45;
 
@@ -34,7 +36,7 @@ public class Card : Area2D
 	
 	public override void _Ready()
 	{
-		AddToGroup(CardUtils.CardsGroupName);
+		AddToGroup(CardsGroupName);
 		sprite = GetNode<Sprite>("Sprite");
 		sprite.RegionEnabled = true;
 		sprite.RegionRect = GetRegion();
@@ -48,6 +50,19 @@ public class Card : Area2D
 	{		
 		this.type = type;
 		this.number = number;
+	}
+
+	public void SetDimensions(float width, float height)
+	{
+		Width = width;
+		Height = height;
+	}
+
+	public void MoveToRelativePosition(Vector2 position)
+	{
+		position.x += DrawWidth / 2f;
+		position.y += DrawHeight / 2f;
+		Position = position;
 	}
 
 	private void OnMouseEntered() => isMouseInside = true;

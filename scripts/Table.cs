@@ -5,12 +5,11 @@ public class Table : Godot.Object
 {
     private Pile[] foundations = new Pile[4];
     private Pile[] tableau = new Pile[7];
-
     private Pile stock;
     private Pile talon;
+    
 
     private PackedScene piles;
-
     private ViewportUtils view;
 
     public Table(ViewportUtils view, PackedScene piles)
@@ -21,7 +20,7 @@ public class Table : Godot.Object
         view.OnViewportResize += new ViewportUtils.OnViewportResizeDelegate(OnViewportResize);
     }
 
-    public void SetTable()
+    public void Create()
     {
         for (int i = 0; i < 4; i++)
         {
@@ -42,6 +41,22 @@ public class Table : Godot.Object
         talon.SetDimension(Settings.CardPhysicalWidth, Settings.CardPhysicalHeight);
 
         OnViewportResize();
+    }
+
+    public void Clear()
+    {
+        foreach (var pile in foundations)
+        {
+            pile.QueueFree();
+        }
+
+        foreach (var pile in tableau)
+        {
+            pile.QueueFree();
+        }
+
+        stock.QueueFree();
+        talon.QueueFree();
     }
 
     public Node[] GetTableNodes()
