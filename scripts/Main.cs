@@ -9,15 +9,27 @@ public class Main : Node2D
   [Export]
   public PackedScene Cards;
 
+  [Export]
+  public PackedScene Piles;
+
   private Card[] deck;
   private Card selectedCard;
-	private int currentZindex = 64;
+
+  private int currentZindex = 64;
 
   private bool isMousePressed = false;
   private Vector2 mouseDragPosition = new Vector2(0, 0);
 
+  private ViewportUtils viewUtils;
+  private Table table;
+
   public override void _Ready()
   {
+    viewUtils = new ViewportUtils(GetViewport());
+    viewUtils.OnViewportResize += new ViewportUtils.OnViewportResizeDelegate(OnViewportResize);
+
+    table = new Table(viewUtils, Piles);
+
     VisualServer.SetDefaultClearColor(BackgroundColor);
   }
 
@@ -59,8 +71,23 @@ public class Main : Node2D
     }
   }
 
+  private void OnViewportResize()
+  {
+  }
+
+  private void SetTable()
+  {
+    table.SetTable();
+    foreach(var node in table.GetTableNodes())
+    {
+      AddChild(node);
+    }
+  }
+
   private void OnHUDStartGame()
   {
+    SetTable();
+    /*
     float offsetX = 0;
     float offsetY = 0;
     float fullWidth = 0;
@@ -73,10 +100,10 @@ public class Main : Node2D
     {
       if (offsetX == 0)
       {
-        offsetX = deck[i].DrawWidth / 2 + 10;
-        offsetY = deck[i].DrawHeight / 2 + 10;
+      offsetX = deck[i].DrawWidth / 2 + 10;
+      offsetY = deck[i].DrawHeight / 2 + 10;
 
-        fullWidth = 13 * (deck[i].DrawWidth + 10);
+      fullWidth = 13 * (deck[i].DrawWidth + 10);
       }
 
       AddChild(deck[i]);
@@ -84,6 +111,9 @@ public class Main : Node2D
       deck[i].Position = new Vector2(offsetX + i * (deck[i].DrawWidth + 10) - (i / 13) * fullWidth, offsetY + (i / 13) * (deck[i].DrawHeight + 10));
       deck[i].Show();
     }
+    */
+
+
   }
 
   private void ClearDeck()

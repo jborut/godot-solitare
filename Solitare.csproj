@@ -57,8 +57,12 @@
     <Compile Include="scripts\Card.cs" />
     <Compile Include="scripts\ColorUtils.cs" />
     <Compile Include="scripts\CardUtils.cs" />
+    <Compile Include="scripts\ViewportUtils.cs" />
+    <Compile Include="scripts\Settings.cs" />
+    <Compile Include="scripts\Table.cs" />
     <Compile Include="scripts\HUD.cs" />
     <Compile Include="scripts\Main.cs" />
+    <Compile Include="scripts\Pile.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
