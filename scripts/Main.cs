@@ -90,12 +90,16 @@ public class Main : Node2D
       for (int j = 0; j < i + 1; j++)
       {
         cardPositions.AddCardToTableau(deck[k++], i);
+        if (j == i)
+          deck[k - 1].FaceUp = true;
       }
     }
 
     for (int i = k; i < 52; i++)
     {
       cardPositions.AddCardToStock(deck[i]);
+      if (i == 51)
+        deck[i].FaceUp = true;
     }
   }
 

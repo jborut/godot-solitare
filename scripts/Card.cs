@@ -17,18 +17,27 @@ public class Card : Area2D
 	private CollisionShape2D collisionObject;
 	private CardType type = CardType.Clubs;
 	private int number = 0;
-	
-	private const int OffsetX = 0;
-	private const int OffsetY = 2;
-	private float Width = 224;
-	private float Height = 313;
-	private const int MarginWidth = 39;
-	private const int MarginHeight = 45;
+	private float Width = Settings.CardPhysicalWidth;
+	private float Height = Settings.CardPhysicalHeight;
 
 	public float DrawWidth { get => Width * Scale.x; }
 	public float DrawHeight { get => Height * Scale.y; }
 
 	public bool IsMouseOver => isMouseInside;
+
+	private bool faceUp = false;
+	public bool FaceUp 
+	{ 
+		get
+		{
+			return faceUp;
+		} 
+		set 
+		{
+			faceUp = value;
+			sprite.RegionRect = faceUp ? GetRegion() : GetBottomRegion();
+		}
+	}
 
 	private bool isMouseInside = false;
 	private bool isMousePressed = false;
@@ -39,7 +48,7 @@ public class Card : Area2D
 		AddToGroup(CardsGroupName);
 		sprite = GetNode<Sprite>("Sprite");
 		sprite.RegionEnabled = true;
-		sprite.RegionRect = GetRegion();
+		sprite.RegionRect = faceUp ? GetRegion() : GetBottomRegion();
 
 		collisionObject = GetNode<CollisionShape2D>("CollisionShape");
 		((RectangleShape2D)collisionObject.Shape).Extents = new Vector2(Width / 2, Height / 2);
@@ -70,5 +79,6 @@ public class Card : Area2D
 
 	private bool IsDragged => isMouseInside && isMousePressed;
 	
-	private Rect2 GetRegion() => new Rect2(OffsetX + number * (Width + MarginWidth), OffsetY + (int)type * (Height + MarginHeight), Width, Height);
+	private Rect2 GetRegion() => new Rect2(number * Width - (number * 3), (int)type * Height - ((int)type * 3), Width, Height);
+	private Rect2 GetBottomRegion() => new Rect2(0, 4 * Height - 12, Width, Height);
 }
