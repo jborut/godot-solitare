@@ -16,7 +16,11 @@ public class Card : Area2D
 	private Sprite sprite;
 	private CollisionShape2D collisionObject;
 	private CardType type = CardType.Clubs;
+
+	public CardType Type => type;
 	private int number = 0;
+
+	public int Number => number;
 	private float Width = Settings.CardPhysicalWidth;
 	private float Height = Settings.CardPhysicalHeight;
 
@@ -74,11 +78,13 @@ public class Card : Area2D
 		Position = position;
 	}
 
+	public Vector2 GetRelativePosition => new Vector2(Position.x - DrawWidth / 2f, Position.y - DrawHeight / 2f);
+
 	private void OnMouseEntered() => isMouseInside = true;
 	private void OnMouseExited() => isMouseInside = false;
 
 	private bool IsDragged => isMouseInside && isMousePressed;
 	
 	private Rect2 GetRegion() => new Rect2(number * Width - (number * 3), (int)type * Height - ((int)type * 3), Width, Height);
-	private Rect2 GetBottomRegion() => new Rect2(0, 4 * Height - 12, Width, Height);
+	private Rect2 GetBottomRegion() => new Rect2(0, 4 * Height - 10, Width, Height);
 }

@@ -10,6 +10,8 @@ public class Deck
     private List<Card> cards = new List<Card>(52);
     private Card selectedCard = null;
     private int selectedCardZIndex = 64;
+    private Vector2 selectedCardStartPosition;
+    private int selectedCardStartZIndex;
 
     public Card SelectedCard => selectedCard;
 
@@ -55,10 +57,14 @@ public class Deck
 
         foreach (var card in cards)
         {
-            if (card.IsMouseOver)
+            if (card.IsMouseOver && card.FaceUp)
             {
-                if (selectedCard == null || (selectedCard != null && selectedCard.ZIndex < card.ZIndex))
+                if (selectedCard == null || (selectedCard != null && selectedCard.ZIndex < card.ZIndex)) 
+                {
                     selectedCard = card;
+                    selectedCardStartPosition = selectedCard.Position;
+                    selectedCardStartZIndex = selectedCard.ZIndex;
+                }
             }
         }
 
@@ -66,9 +72,21 @@ public class Deck
             selectedCard.ZIndex = selectedCardZIndex++;
     }
 
+    public void ResetSelectedCardPlace()
+    {
+        if (selectedCard != null)
+        {
+            selectedCard.Position = selectedCardStartPosition;
+            selectedCard.ZIndex = selectedCardStartZIndex;
+        }
+    }
+
     public void DeselectCard()
     {
-        selectedCard = null;
+        if (selectedCard != null)
+        {
+            selectedCard = null;
+        }
     }
 
     public Card[] GetCardNodes()

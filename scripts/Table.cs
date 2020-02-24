@@ -101,4 +101,32 @@ public class Table : Godot.Object
             talon.Scale = new Vector2(view.RelativeCardScale, view.RelativeCardScale);
         }
     }
+
+    public bool IsCardCloseToTalon(Card card)
+    {
+        var size = GetCardWidthHeight;
+        return GetNodeRectangle(talon, size).Intersects(GetNodeRectangle(card, size));
+    }
+
+    public bool IsCardCloseToStock(Card card)
+    {
+        var size = GetCardWidthHeight;
+        return GetNodeRectangle(stock, size).Intersects(GetNodeRectangle(card, size));
+    }
+
+    public bool IsCardCloseToTableau(int ord, Card card)
+    {
+        var size = GetCardWidthHeight;
+        return GetNodeRectangle(tableau[ord], size).Intersects(GetNodeRectangle(card, size));
+    }
+
+    public bool IsCardCloseToFoundation(int ord, Card card)
+    {
+        var size = GetCardWidthHeight;
+        return GetNodeRectangle(foundations[ord], size).Intersects(GetNodeRectangle(card, size));
+    }
+
+    private Vector2 GetCardWidthHeight => new Vector2(Settings.CardPhysicalWidth * view.RelativeCardScale, Settings.CardPhysicalHeight * view.RelativeCardScale);
+
+    private Rect2 GetNodeRectangle(Node2D node, Vector2 widthHeight) => new Rect2(node.Position, widthHeight);
 }

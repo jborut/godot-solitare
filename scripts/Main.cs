@@ -56,7 +56,27 @@ public class Main : Node2D
       }
       else
       {
-        deck.DeselectCard();
+        if (deck.SelectedCard != null)
+        {
+          if (cardPositions.CardInStockPlace(deck.SelectedCard) >= 0 && table.IsCardCloseToTalon(deck.SelectedCard))
+          {
+            cardPositions.RemoveCardFromStock(deck.SelectedCard);
+            cardPositions.AddCardToTalon(deck.SelectedCard);
+            if (!cardPositions.IsStockEmpty)
+            {
+              cardPositions.RevealLastCardInStock();
+            }
+          }
+          else if (table.IsCardCloseToFoundation(0, deck.SelectedCard) && cardPositions.CanCardGoOnFoundation(deck.SelectedCard, 0))
+          {
+            cardPositions.AddCardToFoundation(deck.SelectedCard, 0);
+          }
+          else
+          {
+            deck.ResetSelectedCardPlace();
+          }
+          deck.DeselectCard();
+        }
       }
       mouseDragPosition = GetViewport().GetMousePosition();
     }
